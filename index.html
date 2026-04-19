@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Buddies Extreme Demons List</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <div class="page-shell">
+    <header>
+      <div class="top-bar">
+        <div>
+          <h1>Buddies Extreme Demons List</h1>
+        </div>
+        <div class="button-row">
+          <a class="nav-button" href="#main-list">Main List</a>
+          <a class="nav-button secondary" href="#legacy-list">Legacy List</a>
+        </div>
+      </div>
+
+      <div class="search-row">
+        <label for="search">Search the list</label>
+        <input id="search" type="search" placeholder="Filter by level, verifier, records, or YouTube" autocomplete="off" />
+      </div>
+    </header>
+
+    <main class="content-layout">
+      <div class="left-column">
+        <div id="cardsContainer" class="cards-grid"></div>
+      </div>
+
+      <aside class="stats-panel">
+        <p class="stats-label">Stats Viewer</p>
+        <div class="stats-window">
+          <span>coming soon ^_^</span>
+        </div>
+      </aside>
+    </main>
+
+    <footer>
+      <p>Initial website version showing the full spreadsheet content.
+      Use the search box to filter entries in real time.</p>
+    </footer>
+  </div>
+
+  <script src="data.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>

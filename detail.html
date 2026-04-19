@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Level details - Buddies Extreme Demons List</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <div class="page-shell">
+    <header>
+      <div class="top-bar">
+        <a class="nav-button secondary" href="index.html">← Back to list</a>
+        <h1 id="detailTitle">Level details</h1>
+      </div>
+    </header>
+
+    <main class="detail-layout">
+      <section class="detail-video-panel">
+        <div class="detail-video-title">Video preview</div>
+        <div class="detail-video-frame" id="videoFrame"></div>
+      </section>
+
+      <aside class="detail-info-panel">
+        <div class="info-block">
+          <h2>Level info</h2>
+          <p><strong>Level:</strong> <span id="detailLevel"></span></p>
+          <p><strong>ID:</strong> <span id="detailId"></span></p>
+          <p><strong>B-verified by:</strong> <span id="detailVerifier"></span></p>
+          <p><strong>B-records:</strong> <span id="detailRecords"></span></p>
+        </div>
+        <div class="info-block">
+          <h2>B-record holders</h2>
+          <div class="record-holders" id="recordHolders">No B-record details available.</div>
+        </div>
+      </aside>
+    </main>
+  </div>
+
+  <script src="data.js"></script>
+  <script src="detail.js"></script>
+</body>
+</html>
