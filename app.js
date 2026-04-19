@@ -103,3 +103,14 @@ searchInput.addEventListener('input', (event) => {
 });
 
 renderCards();
+
+const themeToggle = document.getElementById('theme-toggle');
+if (localStorage.getItem('theme') === 'dark') {
+  document.documentElement.classList.add('dark');
+  themeToggle.textContent = '☀️';
+}
+themeToggle.addEventListener('click', () => {
+  const isDark = document.documentElement.classList.toggle('dark');
+  themeToggle.textContent = isDark ? '☀️' : '🌙';
+  localStorage.setItem('theme', isDark ? 'dark' : 'light');
+});
