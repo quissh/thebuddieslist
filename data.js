@@ -24,3 +24,5 @@ const demonData = [
   { type: 'entry', level: 'Gunslinga Corridor', id: '58069223', youtube: 'https://youtu.be/Ale8EVqywiY', verifier: 'arctic', records: '' },
   { type: 'entry', level: 'Ice Carbon Diablo X', id: '814678', youtube: 'https://youtu.be/V0TbT8vriRg', verifier: 'V01D', records: 'xbow (100%)' }
 ];
+
+window.demonData = demonData;
