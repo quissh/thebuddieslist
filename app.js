@@ -11,7 +11,6 @@ function getYoutubeId(url) {
     /v=([^?#&]+)/,
     /embed\/([^?#&]+)/
   ];
-
   for (const pattern of patterns) {
     const match = url.match(pattern);
     if (match) return match[1];
@@ -22,6 +21,11 @@ function getYoutubeId(url) {
 function getThumbnailUrl(url) {
   const id = getYoutubeId(url);
   return id ? `https://img.youtube.com/vi/${id}/maxresdefault.jpg` : '';
+}
+
+function getFallbackUrl(url) {
+  const id = getYoutubeId(url);
+  return id ? `https://img.youtube.com/vi/${id}/hqdefault.jpg` : '';
 }
 
 function createCard(item) {
@@ -36,13 +40,19 @@ function createCard(item) {
   const card = document.createElement('article');
   card.className = 'card';
 
-  const thumbnail = getThumbnailUrl(item.youtube);
   const detailLink = `detail.html?id=${encodeURIComponent(item.id)}`;
-  const videoLink = item.youtube ? item.youtube : '#';
+  const videoLink = item.youtube || '#';
+  const thumbnail = getThumbnailUrl(item.youtube);
+  const fallback = getFallbackUrl(item.youtube);
 
   card.innerHTML = `
     <a class="card-media" href="${videoLink}" target="_blank" rel="noopener noreferrer">
-      <img src="${thumbnail}" alt="${item.level} video thumbnail" loading="lazy" />
+      <img
+        src="${thumbnail}"
+        alt="${item.level} video thumbnail"
+        loading="lazy"
+        onerror="this.onerror=null; this.src='${fallback}';"
+      />
     </a>
     <div class="card-body">
       <h2 class="card-title"><a href="${detailLink}">${item.level}</a></h2>
@@ -54,23 +64,17 @@ function createCard(item) {
     </div>
   `;
 
-  card.querySelectorAll('.copy-id').forEach((button) => {
-    button.addEventListener('click', async (event) => {
-      event.preventDefault();
-      const id = button.dataset.id;
-      if (!id) return;
-
-      try {
-        await navigator.clipboard.writeText(id);
-        const previous = button.textContent;
-        button.textContent = 'Copied!';
-        setTimeout(() => {
-          button.textContent = previous;
-        }, 1200);
-      } catch (error) {
-        console.warn('Copy failed', error);
-      }
-    });
+  card.querySelector('.copy-id').addEventListener('click', async (e) => {
+    e.preventDefault();
+    const btn = e.currentTarget;
+    try {
+      await navigator.clipboard.writeText(btn.dataset.id);
+      const prev = btn.textContent;
+      btn.textContent = 'Copied!';
+      setTimeout(() => { btn.textContent = prev; }, 1200);
+    } catch {
+      console.warn('Copy failed');
+    }
   });
 
   return card;
@@ -78,32 +82,25 @@ function createCard(item) {
 
 function itemMatchesFilter(item, filter) {
   if (!filter) return true;
-  if (item.type === 'section') {
-    return normalizeText(item.title).includes(filter);
-  }
-
+  if (item.type === 'section') return normalizeText(item.title).includes(filter);
   return [item.level, item.id, item.youtube, item.verifier, item.records]
     .map(normalizeText)
-    .some((value) => value.includes(filter));
+    .some((v) => v.includes(filter));
 }
 
 function renderCards(filter = '') {
-  const normalizedFilter = normalizeText(filter);
+  const f = normalizeText(filter);
   cardsContainer.innerHTML = '';
-
   demonData.forEach((item) => {
-    if (itemMatchesFilter(item, normalizedFilter)) {
-      cardsContainer.appendChild(createCard(item));
-    }
+    if (itemMatchesFilter(item, f)) cardsContainer.appendChild(createCard(item));
   });
 }
 
-searchInput.addEventListener('input', (event) => {
-  renderCards(event.target.value);
-});
+searchInput.addEventListener('input', (e) => renderCards(e.target.value));
 
 renderCards();
 
+// Theme toggle
 const themeToggle = document.getElementById('theme-toggle');
 if (localStorage.getItem('theme') === 'dark') {
   document.documentElement.classList.add('dark');

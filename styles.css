@@ -24,8 +24,7 @@
   --btn-primary-bg: #f8fafc;
   --btn-primary-color: #111827;
   --btn-primary-hover: #ffffff;
-  --btn-secondary-bg: #111827;
-  --btn-secondary-color: #f8fafc;
+
   --link: #2563eb;
   --thumbnail-bg: rgba(17, 24, 39, 0.88);
   --thumbnail-color: #f8fafc;
@@ -52,8 +51,6 @@
   --btn-primary-bg: #22222d;
   --btn-primary-color: #e8e8f0;
   --btn-primary-hover: #2a2a38;
-  --btn-secondary-bg: #e8e8f0;
-  --btn-secondary-color: #111827;
   --link: #60a5fa;
   --thumbnail-bg: rgba(0, 0, 0, 0.75);
   --thumbnail-color: #f0f0f8;
@@ -133,12 +130,6 @@ h1 {
   transform: translateY(-1px);
   background: var(--btn-primary-hover);
   box-shadow: 0 10px 24px var(--shadow-card);
-}
-
-.nav-button.secondary {
-  background: var(--btn-secondary-bg);
-  color: var(--btn-secondary-color);
-  border-color: transparent;
 }
 
 /* ── Theme toggle button ── */

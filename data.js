@@ -11,6 +11,7 @@ const demonData = [
   { type: 'entry', level: 'Conical Depression', id: '17711004', youtube: 'https://youtu.be/vZqz7WF6GhI', verifier: 'arctic', records: '' },
   { type: 'entry', level: 'Sakupen Hell', id: '23262780', youtube: 'https://youtu.be/8kHvyRqQzJA', verifier: 'arctic', records: 'xbow (100%)' },
   { type: 'entry', level: 'Bloodbath', id: '10565740', youtube: 'https://youtu.be/nmblrKa3KI0', verifier: 'V01D', records: 'xbow (100%), woolfys (100%)' },
+  { type: 'entry', level: 'Prismatic Haze', id: '59899374', youtube: 'https://youtu.be/wNh5cb7t7oA', verifier: 'njec', records: '' },
   { type: 'entry', level: 'Cat Planet', id: '84766628', youtube: 'https://youtu.be/TSBEZZrFwZo', verifier: 'V01D', records: '' },
   { type: 'entry', level: 'MELTDOWN', id: '52527538', youtube: 'https://youtu.be/bu5b9xQv5s8', verifier: 'V01D', records: '' },
   { type: 'entry', level: 'Cataclysm', id: '3979721', youtube: 'https://youtu.be/J90L73YOR3k', verifier: 'arctic', records: 'V01D (100%), xbow (100%)' },
