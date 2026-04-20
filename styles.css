@@ -479,3 +479,23 @@ a {
   background: var(--btn-primary-hover);
   box-shadow: 0 10px 24px var(--shadow-card);
 }
+
+h1 {
+  cursor: default;
+}
+
+h1 .wave-letter {
+  display: inline-block;
+  transition: transform 0.2s ease;
+}
+
+h1:hover .wave-letter {
+  animation: wave-bounce 0.6s ease forwards;
+}
+
+@keyframes wave-bounce {
+  0%   { transform: translateY(0); }
+  30%  { transform: translateY(-10px); }
+  60%  { transform: translateY(4px); }
+  100% { transform: translateY(0); }
+}

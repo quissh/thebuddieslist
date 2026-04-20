@@ -1,6 +1,20 @@
 const cardsContainer = document.querySelector('#cardsContainer');
 const searchInput = document.querySelector('#search');
 
+// Wave title effect
+document.querySelector('h1').childNodes.forEach(node => {
+  if (node.nodeType !== Node.TEXT_NODE) return;
+  const text = node.textContent;
+  const wrapped = [...text].map((char, i) =>
+    char === ' '
+      ? ' '
+      : `<span class="wave-letter" style="animation-delay: ${i * 0.04}s">${char}</span>`
+  ).join('');
+  const span = document.createElement('span');
+  span.innerHTML = wrapped;
+  node.replaceWith(span);
+});
+
 function normalizeText(text) {
   return String(text || '').toLowerCase().trim();
 }
@@ -18,12 +32,18 @@ function getYoutubeId(url) {
   return '';
 }
 
-function getThumbnailUrl(url) {
-  const id = getYoutubeId(url);
+function getThumbnailUrl(item) {
+  if (item.thumbnail) return item.thumbnail;
+  const id = getYoutubeId(item.youtube);
   return id ? `https://img.youtube.com/vi/${id}/maxresdefault.jpg` : '';
 }
 
 function getFallbackUrl(url) {
+  const id = getYoutubeId(url);
+  return id ? `https://img.youtube.com/vi/${id}/sddefault.jpg` : '';
+}
+
+function getFallback2Url(url) {
   const id = getYoutubeId(url);
   return id ? `https://img.youtube.com/vi/${id}/hqdefault.jpg` : '';
 }
@@ -42,16 +62,16 @@ function createCard(item) {
 
   const detailLink = `detail.html?id=${encodeURIComponent(item.id)}`;
   const videoLink = item.youtube || '#';
-  const thumbnail = getThumbnailUrl(item.youtube);
+  const thumbnail = getThumbnailUrl(item);
   const fallback = getFallbackUrl(item.youtube);
+  const fallback2 = getFallback2Url(item.youtube);
 
   card.innerHTML = `
     <a class="card-media" href="${videoLink}" target="_blank" rel="noopener noreferrer">
       <img
         src="${thumbnail}"
         alt="${item.level} video thumbnail"
-        loading="lazy"
-        onerror="this.onerror=null; this.src='${fallback}';"
+        onerror="this.src='${fallback}'; this.onerror=function(){ this.src='${fallback2}'; this.onerror=null; };"
       />
     </a>
     <div class="card-body">
@@ -91,8 +111,27 @@ function itemMatchesFilter(item, filter) {
 function renderCards(filter = '') {
   const f = normalizeText(filter);
   cardsContainer.innerHTML = '';
+  let rank = 0;
+  let inMainList = false;
+  let inLegacy = false;
+
   demonData.forEach((item) => {
-    if (itemMatchesFilter(item, f)) cardsContainer.appendChild(createCard(item));
+    if (!itemMatchesFilter(item, f)) return;
+
+    if (item.type === 'section') {
+      if (item.id === 'main-list') inMainList = true;
+      if (item.id === 'legacy-list') { inMainList = false; inLegacy = true; }
+    }
+
+    const card = createCard(item);
+
+    if (item.type === 'entry' && inMainList && !inLegacy) {
+      rank++;
+      const titleEl = card.querySelector('.card-title a');
+      if (titleEl) titleEl.textContent = `#${rank} ${item.level}`;
+    }
+
+    cardsContainer.appendChild(card);
   });
 }
 
