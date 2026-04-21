@@ -34,7 +34,7 @@ function getYoutubeId(url) {
 
 function getThumbnailUrl(item) {
   if (item.thumbnail) return item.thumbnail;
-  const id = getYoutubeId(item.youtube);
+  const id = getYoutubeId(item.video);
   return id ? `https://img.youtube.com/vi/${id}/maxresdefault.jpg` : '';
 }
 
@@ -61,10 +61,10 @@ function createCard(item) {
   card.className = 'card';
 
   const detailLink = `detail.html?id=${encodeURIComponent(item.id)}`;
-  const videoLink = item.youtube || '#';
+  const videoLink = item.video || '#';
   const thumbnail = getThumbnailUrl(item);
-  const fallback = getFallbackUrl(item.youtube);
-  const fallback2 = getFallback2Url(item.youtube);
+  const fallback = getFallbackUrl(item.video);
+  const fallback2 = getFallback2Url(item.video);
 
   card.innerHTML = `
     <a class="card-media" href="${videoLink}" target="_blank" rel="noopener noreferrer">
@@ -77,9 +77,12 @@ function createCard(item) {
     <div class="card-body">
       <h2 class="card-title"><a href="${detailLink}">${item.level}</a></h2>
       <div class="card-meta">
+        ${item.by ? `<span class="meta-line">By ${item.by}</span>` : ''}
         <span class="meta-line">B-verified by ${item.verifier || 'Unknown'}</span>
         <span class="meta-line">ID: <button type="button" class="copy-id" data-id="${item.id}">${item.id}</button></span>
-        ${item.records ? `<span class="meta-line">Records: ${item.records}</span>` : ''}
+        ${Array.isArray(item.records) && item.records.length
+          ? `<span class="meta-line">Records: ${item.records.map(r => `${r.player} (${r.percent}%)`).join(', ')}</span>`
+          : item.records ? `<span class="meta-line">Records: ${item.records}</span>` : ''}
       </div>
     </div>
   `;
@@ -103,7 +106,7 @@ function createCard(item) {
 function itemMatchesFilter(item, filter) {
   if (!filter) return true;
   if (item.type === 'section') return normalizeText(item.title).includes(filter);
-  return [item.level, item.id, item.youtube, item.verifier, item.records]
+  return [item.level, item.id, item.video, item.verifier, item.records, item.by]
     .map(normalizeText)
     .some((v) => v.includes(filter));
 }

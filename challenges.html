@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Buddies Extreme Demons List (v1.0)</title>
+  <title>Buddy Challenges - Buddies Extreme Demons List</title>
   <link rel="stylesheet" href="styles.css" />
 </head>
 <body>
@@ -11,17 +11,16 @@
     <header>
       <div class="top-bar">
         <div>
-          <h1>Buddies Extreme Demons List (v1.0)</h1>
+          <h1>Buddy Challenges</h1>
         </div>
         <div class="button-row">
-          <a class="nav-button" href="#main-list">Main List</a>
-          <a class="nav-button secondary" href="#legacy-list">Legacy List</a>
-          <a class="nav-button secondary" href="challenges.html">Buddy Challenges</a>
+          <a class="nav-button secondary" href="index.html">← Demons List</a>
+          <a class="nav-button" href="#buddy-challenges">Challenges</a>
           <button id="theme-toggle" class="theme-toggle" aria-label="Toggle theme">🌙</button>
         </div>
       </div>
       <div class="search-row">
-        <label for="search">Search the list</label>
+        <label for="search">Search challenges</label>
         <input id="search" type="search" placeholder="Filter by level, verifier, records, or YouTube" autocomplete="off" />
       </div>
     </header>
@@ -39,11 +38,12 @@
     </main>
 
     <footer>
-      <p>wassup penis parkeeeerrr!</p>
+      <p>penis</p>
     </footer>
   </div>
 
-  <script src="data.js"></script>
+  <script src="challengeData.js"></script>
+  <script>window.demonData = challengeData;</script>
   <script src="app.js"></script>
 </body>
 </html>

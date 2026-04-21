@@ -31,14 +31,21 @@ function renderDetail(item) {
   detailVerifier.textContent = item.verifier || 'Unknown';
   detailRecords.textContent = item.records || 'None';
 
-  const videoId = getYoutubeId(item.youtube);
+  const videoId = getYoutubeId(item.video);
   if (videoId) {
     videoFrame.innerHTML = `<iframe src="https://www.youtube.com/embed/${videoId}?rel=0" title="${item.level} preview" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>`;
   } else {
     videoFrame.textContent = 'No video available.';
   }
 
-  if (item.records) {
+  if (Array.isArray(item.records) && item.records.length) {
+    detailRecords.textContent = item.records.map(r => `${r.player} (${r.percent}%)`).join(', ');
+    recordHolders.innerHTML = item.records.map(r =>
+      r.video
+        ? `<div class="record-holder"><a href="${r.video}" target="_blank" rel="noopener noreferrer">${r.player} (${r.percent}%)</a></div>`
+        : `<div class="record-holder">${r.player} (${r.percent}%)</div>`
+    ).join('');
+  } else if (item.records) {
     const recordsText = item.records.split(/[,;]\s*/).filter(Boolean);
     recordHolders.innerHTML = recordsText.map((text) => `<div class="record-holder">${text}</div>`).join('');
   } else {
@@ -57,7 +64,11 @@ function renderNotFound() {
 }
 
 const selectedId = getQueryParam('id');
-const selectedItem = (window.demonData || []).find((item) => item.type === 'entry' && item.id === selectedId);
+const allData = [
+  ...(typeof demonData !== 'undefined' ? demonData : []),
+  ...(typeof challengeData !== 'undefined' ? challengeData : []),
+];
+const selectedItem = allData.find((item) => item.type === 'entry' && item.id === selectedId);
 
 if (selectedItem) {
   renderDetail(selectedItem);
