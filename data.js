@@ -25,9 +25,9 @@ const demonData = [
   { type: 'entry', level: 'Without U', id: '119259720', video: 'https://youtu.be/GR-itf1xUsI', verifier: 'V01D', records: '' },
   { type: 'entry', level: 'The Ultimate Phase', id: '7174110', video: 'https://youtu.be/HWHW_v8ujwU', verifier: 'arctic', records: '' },
   { type: 'entry', level: 'Acu', id: '61079355', video: 'https://youtu.be/HGyNA3L46is', verifier: 'V01D', records: 'arctic (100%), xbow (100%)' },
+  { type: 'section', title: 'LEGACY LIST', id: 'legacy-list' },
   { type: 'entry', level: 'troll level', id: '76196489', video: 'https://youtu.be/MkDnz_Zx0_U', verifier: 'V01D', records: '' },
   { type: 'entry', level: 'Red World', id: '2374518', video: 'https://youtu.be/AlKpZB_ZH5s', verifier: 'V01D', records: 'xbow (100%)' },
-  { type: 'section', title: 'LEGACY LIST', id: 'legacy-list' },
   { type: 'entry', level: 'Gunslinga Corridor', id: '58069223', video: 'https://youtu.be/Ale8EVqywiY', verifier: 'arctic', records: '' },
   { type: 'entry', level: 'Ice Carbon Diablo X', id: '814678', video: 'https://youtu.be/V0TbT8vriRg', verifier: 'V01D', records: 'xbow (100%)' }
 ];
